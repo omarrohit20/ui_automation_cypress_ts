@@ -2,7 +2,7 @@ import { BasePage } from './BasePage';
 
 export class HomePage extends BasePage {
   constructor() {
-    super('/');
+    super('/#/');
   }
 
   getPageTitle(): Cypress.Chainable<string> {
@@ -10,15 +10,18 @@ export class HomePage extends BasePage {
   }
 
   clickLogin(): void {
-    this.getElementByDataCy('login-button').click();
+    cy.get('#navbarAccount', { timeout: 10000 }).click({ force: true });
+    cy.get('.mat-focus-indicator', { timeout: 10000 }).contains('Login').click({ force: true });
   }
 
   clickRegister(): void {
-    this.getElementByDataCy('register-button').click();
+    cy.get('#navbarAccount', { timeout: 10000 }).click({ force: true });
+    cy.get('.mat-focus-indicator', { timeout: 10000 }).contains('Register').click({ force: true });
   }
 
   searchProduct(productName: string): void {
-    this.getElementByDataCy('search-input').type(productName);
-    this.getElementByDataCy('search-button').click();
+    // Search using available search input
+    cy.get('input[placeholder*="search"], input[class*="search"]', { timeout: 10000 }).type(productName, { force: true });
+    cy.get('button[class*="search"], [aria-label*="search"]', { timeout: 10000 }).first().click({ force: true });
   }
 }

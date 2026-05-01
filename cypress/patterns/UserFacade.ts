@@ -16,9 +16,8 @@ export class UserFacade {
 
   // Simplified interface for user login
   loginUser(email: string, password: string): void {
-    this.homePage.visit();
-    this.homePage.clickLogin();
-    this.loginContext.executeLogin(email, password);
+    this.loginPage.visit();
+    this.loginPage.login(email, password);
   }
 
   // Can add more complex operations like registration, logout, etc.
